@@ -3,17 +3,24 @@ namespace AppBundle\Security;
 
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Security;
+
+
 
 class WeirdFormLoginAuthenticator extends AbstractGuardAuthenticator{
   private $em;
+  private $router;
   
-  public function __construct(EntityManager $em) {
+  public function __construct(EntityManager $em, RouterInterface $router) {
     $this->em = $em;
+    $this->router = $router;
   }
 
   public function getCredentials(Request $request) {
@@ -56,11 +63,17 @@ class WeirdFormLoginAuthenticator extends AbstractGuardAuthenticator{
   }
   
   public function onAuthenticationFailure(Request $request, AuthenticationException $exception) {
+    $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception); 
+     
+    $url = $this->router->generate('login');
     
+    return new RedirectResponse($url);
   }
 
   public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey) {
+    $url = $this->router->generate('homepage');
     
+    return new RedirectResponse($url);  
   }
 
   public function start(Request $request, AuthenticationException $authException = null) {
