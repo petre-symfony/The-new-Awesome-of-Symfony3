@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Security;
@@ -39,7 +40,9 @@ class WeirdFormLoginAuthenticator extends AbstractGuardAuthenticator{
   public function getUser($credentials, UserProviderInterface $userProvider) {
     $username = $credentials['username'];
     if (substr($username, 0, 1) == '@'){
-      return;
+      throw new CustomUserMessageAuthenticationException(
+        'Starting a username with @ is weird, don\'t you think?'        
+      );
     }
     
     return $this->em->getRepository('AppBundle:User')
@@ -52,11 +55,15 @@ class WeirdFormLoginAuthenticator extends AbstractGuardAuthenticator{
     }
     
     if ($credentials['answer'] != 42){
-      return;
+      throw new CustomUserMessageAuthenticationException(
+        'Don\'t yopu read any books?'        
+      );
     }
     
     if (!$credentials['terms']){
-      return;
+      throw new CustomUserMessageAuthenticationException(
+        'Agree to our terms!'        
+      );
     }
     
     return true;
