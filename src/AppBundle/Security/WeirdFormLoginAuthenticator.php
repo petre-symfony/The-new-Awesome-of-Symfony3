@@ -16,10 +16,6 @@ class WeirdFormLoginAuthenticator extends AbstractGuardAuthenticator{
     $this->em = $em;
   }
 
-  public function checkCredentials($credentials, UserInterface $user) {
-    
-  }
-
   public function getCredentials(Request $request) {
     if ($request->getPathInfo() != '/login' || !$request->isMethod('POST')){
       return;
@@ -43,6 +39,22 @@ class WeirdFormLoginAuthenticator extends AbstractGuardAuthenticator{
       ->findOneBy(['username' => $username]);
   }
 
+  public function checkCredentials($credentials, UserInterface $user) {
+    if($credentials['password'] != 'symfony3'){
+      return;
+    }
+    
+    if ($credentials['answer'] != 42){
+      return;
+    }
+    
+    if (!$credentials['terms']){
+      return;
+    }
+    
+    return true;
+  }
+  
   public function onAuthenticationFailure(Request $request, AuthenticationException $exception) {
     
   }
