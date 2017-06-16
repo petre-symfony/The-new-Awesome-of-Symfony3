@@ -77,11 +77,13 @@ class WeirdFormLoginAuthenticator extends AbstractGuardAuthenticator{
   }
 
   public function start(Request $request, AuthenticationException $authException = null) {
+    $url = $this->router->generate('login');
     
+    return new RedirectResponse($url);
   }
 
   public function supportsRememberMe() {
-    
+    return true;  
   }
 
 }
