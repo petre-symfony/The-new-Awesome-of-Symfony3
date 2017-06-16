@@ -14,7 +14,16 @@ class WeirdFormLoginAuthenticator extends AbstractGuardAuthenticator{
   }
 
   public function getCredentials(Request $request) {
+    if ($request->getPathInfo() != '/login' || !$request->isMethod('POST')){
+      return;
+    }
     
+    return [
+      'username' => $request->request->get('_username'),
+      'password' => $request->request->get('_password'),
+      'answer'   => $request->request->get('the_answer'),
+      'terms'    => $request->request->get('terms') 
+    ];
   }
 
   public function getUser($credentials, UserProviderInterface $userProvider) {
