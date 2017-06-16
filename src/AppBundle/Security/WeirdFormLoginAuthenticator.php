@@ -7,8 +7,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Doctrine\ORM\EntityManager;
 
 class WeirdFormLoginAuthenticator extends AbstractGuardAuthenticator{
+  private $em;
+  
+  public function __construct(EntityManager $em) {
+    $this->em = $em;
+  }
+
   public function checkCredentials($credentials, UserInterface $user) {
     
   }
@@ -27,7 +34,13 @@ class WeirdFormLoginAuthenticator extends AbstractGuardAuthenticator{
   }
 
   public function getUser($credentials, UserProviderInterface $userProvider) {
+    $username = $credentials['username'];
+    if (substr($username, 0, 1) == '@'){
+      return;
+    }
     
+    return $this->em->getRepository('AppBundle:User')
+      ->findOneBy(['username' => $username]);
   }
 
   public function onAuthenticationFailure(Request $request, AuthenticationException $exception) {
