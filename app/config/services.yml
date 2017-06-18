@@ -7,3 +7,8 @@ services:
   weird_authenticator:
     class: AppBundle\Security\WeirdFormLoginAuthenticator
     autowire: true
+    
+  user_voter:
+    class: AppBundle\Security\UserVoter
+    tags:
+      - { name: security.voter }

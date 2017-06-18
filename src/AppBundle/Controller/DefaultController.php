@@ -54,7 +54,7 @@ class DefaultController extends Controller {
   }
   
   /**
-   * @Route("/sers/{username}", name="user_view")
+   * @Route("/users/{username}", name="user_view")
    */
   public function viewUserAction(User $user) {
     if(!$this->isGranted('USER_VIEW', $user)){
