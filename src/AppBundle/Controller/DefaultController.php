@@ -57,6 +57,10 @@ class DefaultController extends Controller {
    * @Route("/sers/{username}", name="user_view")
    */
   public function viewUserAction(User $user) {
+    if(!$this->isGranted('USER_VIEW', $user)){
+      throw  $this->createAccessDeniedException('NO!');
+    }
     
+    dump('Access granted', $user); die;
   }
 }
