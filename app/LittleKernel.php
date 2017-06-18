@@ -29,6 +29,7 @@ class LittleKernel extends Kernel {
   protected function configureRoutes(RouteCollectionBuilder $routes) {
     $routes->add('/hello/symfony/{version}', 'kernel:helloSymfony'); 
     
+    $routes->import(__DIR__.'/../src/AppBundle/Controller', '/', 'annotation');
   }
   
   protected function configureContainer(ContainerBuilder $c, LoaderInterface $loader) {
