@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <h1>You should signup!</h1>
+  {{ form_widget(form) }}
+  
+  {{ form_start(form) }}
+    <button class="btn btn-default">Register!</button>
+  {{ form_end(form) }}
+{% endblock %}
