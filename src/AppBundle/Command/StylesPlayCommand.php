@@ -34,5 +34,12 @@ class StylesPlayCommand extends ContainerAwareCommand{
         ['leanapelham', 'All February']  
       ]
     );
+    
+    $style->section('Ryan\'s favorite things');
+    $style->listing([
+      'Travelling',
+      'Pizza',
+      'Rafting'
+    ]);
   }  
 }
