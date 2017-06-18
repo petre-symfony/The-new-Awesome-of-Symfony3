@@ -23,7 +23,11 @@ class DefaultController extends Controller {
   public function sillyLoginAction() {
     $error = $this->get('security.authentication_utils')
       ->getLastAuthenticationError();
-
+    
+    dump($this->get('security.authentication_utils'));
+    
+    throw new \Exception('Something went wrong!');
+    
     return $this->render('default/login.html.twig', [
       'error' => $error
     ]);
