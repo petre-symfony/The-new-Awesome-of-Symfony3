@@ -23,5 +23,7 @@ class StylesPlayCommand extends ContainerAwareCommand{
     $style->section('How about some BIG messages?');
     $style->success('I <3 lorem lipsum');
     $style->warning('We should *maybe* not use Lorem Lipsum');
+    $style->error('You should stop using Lorem Lipsum');
+    $style->caution('STOP USING IT SRSLY');
   }  
 }
