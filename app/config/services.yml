@@ -10,5 +10,6 @@ services:
     
   user_voter:
     class: AppBundle\Security\UserVoter
+    autowire: true
     tags:
       - { name: security.voter }
