@@ -25,5 +25,14 @@ class StylesPlayCommand extends ContainerAwareCommand{
     $style->warning('We should *maybe* not use Lorem Lipsum');
     $style->error('You should stop using Lorem Lipsum');
     $style->caution('STOP USING IT SRSLY');
+    
+    $style->section('Some tables and lists?');
+    $style->table(
+      ['User', 'Birthday'], 
+      [
+        ['petrero', 'Sep 23th'] ,
+        ['leanapelham', 'All February']  
+      ]
+    );
   }  
 }
