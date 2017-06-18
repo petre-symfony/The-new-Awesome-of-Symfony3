@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\RegistrationForm;
 
 class DefaultController extends Controller {
   /**
@@ -33,5 +34,13 @@ class DefaultController extends Controller {
    * @Route("/logout", name="logout")
    */
   public function logoutAction(){
+  }
+  
+  /**
+   * @Route("/register", name="user_register")
+   */
+  public function registerAction(Request $request){
+    $form = $this->createForm(RegistrationForm::class);
+    
   }
 }
