@@ -6,6 +6,4 @@ parameters:
 services:
   weird_authenticator:
     class: AppBundle\Security\WeirdFormLoginAuthenticator
-    arguments: 
-      - '@doctrine.orm.entity_manager'
-      - '@router'
+    autowire: true
