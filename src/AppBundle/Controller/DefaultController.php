@@ -41,6 +41,14 @@ class DefaultController extends Controller {
    */
   public function registerAction(Request $request){
     $form = $this->createForm(RegistrationForm::class);
+    $form->handleRequest($request);
     
+    if ($form->isValid()){
+      dump($form->getData());die;
+    }
+    
+    return $this->render('default/register.html.twig', [
+      'form' => $form->createView()
+    ]);
   }
 }
