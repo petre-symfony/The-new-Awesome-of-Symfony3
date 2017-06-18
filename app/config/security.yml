@@ -19,6 +19,9 @@ security:
       logout: ~
       # activate different ways to authenticate
 
+      guard:
+        authenticators: 
+          - weird_authenticator
       # http_basic: ~
       # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
 
