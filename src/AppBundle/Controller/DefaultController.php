@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\RegistrationForm;
+use AppBundle\Entity\User;
 
 class DefaultController extends Controller {
   /**
@@ -50,5 +51,12 @@ class DefaultController extends Controller {
     return $this->render('default/register.html.twig', [
       'form' => $form->createView()
     ]);
+  }
+  
+  /**
+   * @Route("/sers/{username}", name="user_view")
+   */
+  public function viewUserAction(User $user) {
+    
   }
 }
