@@ -19,5 +19,8 @@ class StylesPlayCommand extends ContainerAwareCommand{
     $style->note('More sure write some *real* text eventually');
     $style->comment('Lorem Lipsum is just latin garbage');
     $style->comment('Don\'t overuse it');
+    
+    $style->section('How about some BIG messages?');
+    $style->success('I <3 lorem lipsum');
   }  
 }
