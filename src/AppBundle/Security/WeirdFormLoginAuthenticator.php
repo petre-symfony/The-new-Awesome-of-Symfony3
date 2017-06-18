@@ -12,16 +12,19 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Security;
+use AppBundle\Security\EvilSecurityRobot;
 
 
 
 class WeirdFormLoginAuthenticator extends AbstractGuardAuthenticator{
   private $em;
   private $router;
+  private $evilSecurityRobot;
   
-  public function __construct(EntityManager $em, RouterInterface $router) {
+  public function __construct(EntityManager $em, RouterInterface $router,EvilSecurityRobot $evilSecurityRobot) {
     $this->em = $em;
     $this->router = $router;
+    $this->evilSecurityRobot = $evilSecurityRobot;
   }
 
   public function getCredentials(Request $request) {
@@ -50,6 +53,12 @@ class WeirdFormLoginAuthenticator extends AbstractGuardAuthenticator{
   }
 
   public function checkCredentials($credentials, UserInterface $user) {
+    if (!$this->evilSecurityRobot->doesRobotAllowAccess()){
+      throw new CustomUserMessageAuthenticationException(
+        'RANDOM SECURITY ROBOT SAYS NO!'        
+      );
+    }
+    
     if($credentials['password'] != 'symfony3'){
       return;
     }
