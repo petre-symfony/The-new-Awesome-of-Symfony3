@@ -4,6 +4,7 @@ namespace AppBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class StylesPlayCommand extends ContainerAwareCommand{
   protected function configure() {
@@ -11,6 +12,10 @@ class StylesPlayCommand extends ContainerAwareCommand{
   }
   
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $output->writeln('boring...');
+    $style = new SymfonyStyle($input, $output);
+    $style->title('Welcome to SymfonyStyle!');
+    $style->section('Wow, look at this text section');
+    $style->text('Lorem Lipsum Dolor! Lorem Lipsum Dolor! Lorem Lipsum Dolor!');
+    $style->note('More sure write some *real* text eventually');
   }  
 }
